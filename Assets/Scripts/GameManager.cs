@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
             dimFlag = true;
             Debug.Log("dimmed");
         }
-        if (elapsedTime >= endTime) {
-            Application.Quit();
-        }
+        //if (elapsedTime >= endTime) {
+            //Application.Quit();
+        //}
     }
 }
