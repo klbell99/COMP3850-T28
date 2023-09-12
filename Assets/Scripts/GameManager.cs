@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public GameObject blinkObj;
+    public Light fireLight;
 
     // "dim" - point where fire dims down, sky goes darker
     public float dimTime;   //in minutes
@@ -38,10 +39,15 @@ public class GameManager : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= dimTime && !dimFlag) {
             dimFlag = true;
+            DimLight();
             Debug.Log("dimmed");
         }
         //if (elapsedTime >= endTime) {
             //Application.Quit();
         //}
+    }
+
+    private void DimLight() {
+        fireLight.intensity = 0.5f;
     }
 }
