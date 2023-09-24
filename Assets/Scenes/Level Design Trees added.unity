@@ -150,22 +150,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.4512348
+      value: -0.06953577
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5444146
+      value: -0.7036795
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.54441434
+      value: -0.7036795
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.45123494
+      value: 0.06953577
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
@@ -180,7 +180,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -68.02
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e64c7323a23352b4da3e43a82176c666,
         type: 3}
@@ -306,6 +306,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.008
       objectReference: {fileID: 0}
+    - target: {fileID: 2679159901996359176, guid: 2c9aff572ba93b64886624d4fff07f73,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956919587591799272, guid: 2c9aff572ba93b64886624d4fff07f73,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
 --- !u!1001 &278742024
@@ -323,17 +333,17 @@ PrefabInstance:
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.974599
+      value: -4.6
       objectReference: {fileID: 0}
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4403337
+      value: 1.86
       objectReference: {fileID: 0}
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.7494888
+      value: -3.15
       objectReference: {fileID: 0}
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
@@ -378,17 +388,17 @@ PrefabInstance:
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 150.00005
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 150.00009
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5842636339259636828, guid: c21061e552edb2240aaaede945222ac8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 150.00006
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c21061e552edb2240aaaede945222ac8, type: 3}
@@ -505,7 +515,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.6308268, b: 0.33490568, a: 1}
   m_Intensity: 1
-  m_Range: 9
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -606,10 +616,10 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 4
   m_TerrainData: {fileID: 15600000, guid: dd18879ee40dae842b8217a7cf63a6a0, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 222
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 1589
+  m_TreeDistance: 150
+  m_TreeBillboardDistance: 20
+  m_TreeCrossFadeLength: 80
+  m_TreeMaximumFullLODCount: 10
   m_DetailObjectDistance: 107
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
@@ -741,17 +751,17 @@ PrefabInstance:
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.348404
+      value: -7.04
       objectReference: {fileID: 0}
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4403337
+      value: 1.86
       objectReference: {fileID: 0}
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.767301
+      value: 4.09
       objectReference: {fileID: 0}
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
@@ -796,17 +806,17 @@ PrefabInstance:
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 150.00003
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 150.00014
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3194578171756389765, guid: 1bcbd1851071f26489b005748852530b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 150.00014
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bcbd1851071f26489b005748852530b, type: 3}
@@ -838,7 +848,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 0.40873086, g: 0.49902353, b: 0.5188679, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
