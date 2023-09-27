@@ -605,6 +605,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inverted Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1aa6143c1443f5e40b939afe2bd41a33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1aa6143c1443f5e40b939afe2bd41a33,
         type: 3}
       propertyPath: m_LocalPosition.x
