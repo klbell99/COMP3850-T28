@@ -21,9 +21,9 @@ public class AddMallow : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         if (isHead) {
-            other.GetComponent<Prototype>().MallowDisappear();
+            other.GetComponent<Stick>().MallowDisappear();
         } else {
-            other.GetComponent<Prototype>().MallowAppear();
+            other.GetComponent<Stick>().MallowAppear();
         }
     }
 }

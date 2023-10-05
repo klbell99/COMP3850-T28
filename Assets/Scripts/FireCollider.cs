@@ -16,7 +16,11 @@ public class FireCollider : MonoBehaviour
         
     }
 
-    void OnTriggerStay(Collider other) {
-        other.GetComponent<Prototype>().MallowToast();
+    void OnTriggerEnter(Collider other) {
+        other.GetComponent<Stick>().CookingState(true);
+    }
+
+    void OnTriggerExit(Collider other) {
+        other.GetComponent<Stick>().CookingState(false);
     }
 }
