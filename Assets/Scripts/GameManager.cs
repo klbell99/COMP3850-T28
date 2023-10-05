@@ -5,49 +5,42 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public GameObject blinkObj;
-    public Light fireLight;
+    //public GameObject blinkObj;
+    //public Light fireLight;
 
     // "dim" - point where fire dims down, sky goes darker
-    public float dimTime;   //in minutes
-    private bool dimFlag;
+    //public float dimTime;   //in minutes
+    //private bool dimFlag;
 
     // "dark" - point where fire goes out completely
-    public float darkTime;  //in minutes
-    private bool darkFlag;
+    //public float darkTime;  //in minutes
+    //private bool darkFlag;
 
     // "end" - point where timed experience ends
     public float endTime;   //in minutes
 
-    private float elapsedTime;  //in seconds
-
     // Start is called before the first frame update
     void Start()
     {
-        elapsedTime = 0;
-        dimTime = dimTime * 60;//change to seconds
-        darkTime = darkTime * 60;
-        endTime = endTime * 60;
+        // dimTime = dimTime * 60;//change to seconds
+        // darkTime = darkTime * 60;
+        // endTime = endTime * 60;
 
-        dimFlag = false;
-        darkFlag = false;
+        // dimFlag = false;
+        // darkFlag = false;
+        endTime *= 60;  //change to seconds
     }
 
     // Update is called once per frame
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= dimTime && !dimFlag) {
-            dimFlag = true;
-            DimLight();
-            Debug.Log("dimmed");
+        // if (Time.time >= dimTime && !dimFlag) {
+        //     dimFlag = true;
+        //     DimLight();
+        //     Debug.Log("dimmed");
+        // }
+        if (Time.time >= endTime) {
+            Application.Quit();
         }
-        //if (elapsedTime >= endTime) {
-            //Application.Quit();
-        //}
-    }
-
-    private void DimLight() {
-        fireLight.intensity = 0.5f;
     }
 }

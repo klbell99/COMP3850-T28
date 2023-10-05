@@ -18,9 +18,11 @@ public class FireCollider : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         other.GetComponent<Stick>().CookingState(true);
+        GetComponent<AudioSource>().Play();
     }
 
     void OnTriggerExit(Collider other) {
         other.GetComponent<Stick>().CookingState(false);
+        GetComponent<AudioSource>().Stop();
     }
 }
