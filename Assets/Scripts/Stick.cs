@@ -16,12 +16,15 @@ public class Stick : MonoBehaviour
     private float toastAlpha;       // current toast texture alpha value
 
     private MarshmallowState mallowState;
-    private enum MarshmallowState
+    public enum MarshmallowState
     {
         None,
         Raw,
         Cooked,
         Burnt
+    }
+    public MarshmallowState _CurrentState{
+        get { return mallowState; }
     }
     // Start is called before the first frame update
     void Start()
@@ -83,6 +86,7 @@ public class Stick : MonoBehaviour
             }
         }
         if (toastTime > meltThreshold && mallowState == MarshmallowState.Burnt) {
+            FireCollider.Instance.StopSound();
             MallowDisappear();
         }
     }
