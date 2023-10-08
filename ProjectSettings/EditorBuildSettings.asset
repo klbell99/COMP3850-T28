@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level Design.unity
     guid: df12cc82df61baa439bae6553987a4bc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level Design Trees added.unity
     guid: 73deecea0da1902468f940e7ebaf7a4c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/LoFiPrototype.unity
     guid: 7836904645ecc984692ae85da87a9f45
   m_configObjects: {}

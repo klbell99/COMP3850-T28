@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
 
     private float elapsedTime;  //in seconds
 
-    private float sbRotation;
-    public float sbSpeed;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +31,6 @@ public class GameManager : MonoBehaviour
 
         dimFlag = false;
         darkFlag = false;
-
-        sbRotation = 0;
     }
 
     // Update is called once per frame
@@ -50,8 +45,6 @@ public class GameManager : MonoBehaviour
         //if (elapsedTime >= endTime) {
             //Application.Quit();
         //}
-        //sbRotation = sbRotation + (Time.deltaTime * sbSpeed);
-        //RenderSettings.skybox.SetFloat("_Rotation", sbRotation);
     }
 
     private void DimLight() {
