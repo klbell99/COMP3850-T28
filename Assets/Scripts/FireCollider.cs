@@ -12,16 +12,47 @@ public class FireCollider : MonoBehaviour
             Instance = this;
         }
     }
+    private Vector3 fireScale;
+    private bool fireDimming;
+    public GameObject fireParticles;
+    public float fireDimRate;//how long it should take for fire to dim completely in seconds
+    private ParticleSystem.ColorOverLifetimeModule colourMod;
+    private Gradient fireGrad;
+    private float fireAlpha;
+    public Light fireLight;
     // Start is called before the first frame update
     void Start()
     {
-        
+        fireDimRate = 1f/fireDimRate;//change to the unit amount the scale should decrease by each second
+        fireDimming = false;
+        colourMod = fireParticles.GetComponent<ParticleSystem>().colorOverLifetime;
+        fireGrad = colourMod.color.gradient;
+        fireAlpha = fireGrad.alphaKeys[0].alpha;
+        Debug.Log(fireAlpha);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (fireDimming) {
+            float thisRate = fireDimRate * Time.deltaTime;
+            fireScale = new Vector3(thisRate, thisRate, thisRate);
+            fireParticles.transform.localScale -= fireScale;
+            fireAlpha -= thisRate;
+            fireGrad.SetKeys(
+                fireGrad.colorKeys,
+                new GradientAlphaKey[] { 
+                    new GradientAlphaKey(fireAlpha, 0.0f), new GradientAlphaKey(fireAlpha, 1.0f) 
+                }
+            );
+            colourMod.color = fireGrad;
+            float thisIntensity = fireLight.intensity;
+            fireLight.intensity = thisIntensity - thisRate;
+            if (fireParticles.transform.localScale.x < 0.1 || fireGrad.alphaKeys[0].alpha <= 0) {
+                fireDimming = false;
+            }
+            
+        }
     }
 
     void OnTriggerEnter(Collider other) {
@@ -39,5 +70,9 @@ public class FireCollider : MonoBehaviour
 
     public void StopSound() {
         GetComponent<AudioSource>().Stop();
+    }
+
+    public void ShrinkFire() {
+        fireDimming = true;
     }
 }
