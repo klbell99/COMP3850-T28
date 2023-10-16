@@ -5,11 +5,14 @@ using UnityEngine;
 public class Stick : MonoBehaviour
 {
     public GameObject mallow;
+    public ParticleSystem smoke;
+    public ParticleSystem smallFire;
     public Material toastMat;
     public Material burnMat;
     public float toastThreshold;
     public float burnThreshold;
     public float meltThreshold;
+    public float timeToMelt;        // seconds it takes for marshmallow to melt
     private float toastTime;
     private bool cooking;
     private float toastIncrement;   // how much the alpha value of the toast texture should increase by each second
@@ -21,7 +24,8 @@ public class Stick : MonoBehaviour
         None,
         Raw,
         Cooked,
-        Burnt
+        Burnt,
+        Melted
     }
     public MarshmallowState _CurrentState{
         get { return mallowState; }
@@ -73,11 +77,11 @@ public class Stick : MonoBehaviour
         }
         if (mallowState == MarshmallowState.Cooked) {
             if (toastTime > burnThreshold) {
+                smoke.Play();
                 mallow.GetComponent<Renderer>().material = burnMat;
                 mallowState = MarshmallowState.Burnt;
             } else {
-                if (toastAlpha < 255) {
-                    Debug.Log(toastAlpha);
+                if (toastAlpha < 254) {
                     toastAlpha += (toastIncrement * Time.deltaTime);
                     Color thisColor = toastMat.color;
                     thisColor.a = toastAlpha;
@@ -86,6 +90,10 @@ public class Stick : MonoBehaviour
             }
         }
         if (toastTime > meltThreshold && mallowState == MarshmallowState.Burnt) {
+            smallFire.Play();
+            mallowState = MarshmallowState.Melted;
+        }
+        if (toastTime > (meltThreshold + timeToMelt) && mallowState == MarshmallowState.Melted) {
             FireCollider.Instance.StopSound();
             MallowDisappear();
         }

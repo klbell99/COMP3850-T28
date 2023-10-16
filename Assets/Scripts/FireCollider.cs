@@ -15,11 +15,13 @@ public class FireCollider : MonoBehaviour
     private Vector3 fireScale;
     private bool fireDimming;
     public GameObject fireParticles;
+    public GameObject emberParticles;
     public float fireDimRate;//how long it should take for fire to dim completely in seconds
     private ParticleSystem.ColorOverLifetimeModule colourMod;
     private Gradient fireGrad;
     private float fireAlpha;
     public Light fireLight;
+    public AudioSource fireMainSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,6 @@ public class FireCollider : MonoBehaviour
         colourMod = fireParticles.GetComponent<ParticleSystem>().colorOverLifetime;
         fireGrad = colourMod.color.gradient;
         fireAlpha = fireGrad.alphaKeys[0].alpha;
-        Debug.Log(fireAlpha);
     }
 
     // Update is called once per frame
@@ -50,6 +51,11 @@ public class FireCollider : MonoBehaviour
             fireLight.intensity = thisIntensity - thisRate;
             if (fireParticles.transform.localScale.x < 0.1 || fireGrad.alphaKeys[0].alpha <= 0) {
                 fireDimming = false;
+                GetComponent<BoxCollider>().enabled = false;
+                StopSound();
+                fireMainSound.Stop();
+                emberParticles.SetActive(false);
+                fireLight.intensity = 0;
             }
             
         }
