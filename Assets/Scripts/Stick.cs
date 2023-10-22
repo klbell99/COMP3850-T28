@@ -5,6 +5,9 @@ using UnityEngine;
 public class Stick : MonoBehaviour
 {
     public GameObject mallow;
+    public GameObject mallowBiteOne;
+    public GameObject mallowBiteTwo;
+
     public ParticleSystem smoke;
     public ParticleSystem smallFire;
     public Material toastMat;
@@ -17,6 +20,9 @@ public class Stick : MonoBehaviour
     private bool cooking;
     private float toastIncrement;   // how much the alpha value of the toast texture should increase by each second
     private float toastAlpha;       // current toast texture alpha value
+    private float elapsedEatTime;
+    public float mallowEatTime;     // time in seconds for mallow eat animation to play
+    private int bites;      //current number of bites taken in animation (0 - no bites, 1 - 1 bite, 2 - 2 bites)
 
     private MarshmallowState mallowState;
     public enum MarshmallowState
@@ -25,7 +31,8 @@ public class Stick : MonoBehaviour
         Raw,
         Cooked,
         Burnt,
-        Melted
+        Melted,
+        Eating
     }
     public MarshmallowState _CurrentState{
         get { return mallowState; }
@@ -45,29 +52,55 @@ public class Stick : MonoBehaviour
         if (cooking && mallowState != MarshmallowState.None) {
             MallowToast();
         }
+
+        if (mallowState == MarshmallowState.Eating) {
+            elapsedEatTime += Time.deltaTime;
+            if ((elapsedEatTime >= (mallowEatTime/3)) && bites == 0) {
+                mallowBiteOne.SetActive(true);
+                mallow.SetActive(false);
+                bites = 1;
+            }
+            if ((elapsedEatTime >= 2*(mallowEatTime/3)) && bites == 1) {
+                mallowBiteTwo.SetActive(true);
+                mallowBiteOne.SetActive(false);
+                bites = 2;
+            }
+            if (elapsedEatTime >= mallowEatTime) {
+                mallowBiteTwo.SetActive(false);
+                mallowState = MarshmallowState.None;
+            }
+        }
     }
     
     public void MallowAppear() {
         toastTime = 0;
         mallowState = MarshmallowState.Raw;
         mallow.GetComponent<Renderer>().material = toastMat;
+        mallowBiteOne.GetComponent<Renderer>().material = toastMat;
+        mallowBiteTwo.GetComponent<Renderer>().material = toastMat;
         Color thisColor = toastMat.color;
         thisColor.a = 0f;
         toastMat.color = thisColor;
         toastAlpha = 0f;
+        bites = 0;
         mallow.SetActive(true);
         GetComponent<AudioSource>().Play();
     }
 
     public void MallowDisappear() {
-        if (mallowState != MarshmallowState.Raw && mallowState != MarshmallowState.None) {
-            mallowState = MarshmallowState.None;
-            mallow.SetActive(false);
-        }
+        mallowState = MarshmallowState.None;
+        mallow.SetActive(false);
+        mallowBiteOne.SetActive(false);
+        mallowBiteTwo.SetActive(false);
     }
 
     public void CookingState(bool state) {
         cooking = state;
+        if (state) {
+            smallFire.Play();
+        } else {
+            smallFire.Stop();
+        }
     }
 
     private void MallowToast() {
@@ -79,6 +112,8 @@ public class Stick : MonoBehaviour
             if (toastTime > burnThreshold) {
                 smoke.Play();
                 mallow.GetComponent<Renderer>().material = burnMat;
+                mallowBiteOne.GetComponent<Renderer>().material = burnMat;
+                mallowBiteTwo.GetComponent<Renderer>().material = burnMat;
                 mallowState = MarshmallowState.Burnt;
             } else {
                 if (toastAlpha < 254) {
@@ -90,12 +125,18 @@ public class Stick : MonoBehaviour
             }
         }
         if (toastTime > meltThreshold && mallowState == MarshmallowState.Burnt) {
-            smallFire.Play();
             mallowState = MarshmallowState.Melted;
         }
         if (toastTime > (meltThreshold + timeToMelt) && mallowState == MarshmallowState.Melted) {
             FireCollider.Instance.StopSound();
             MallowDisappear();
+        }
+    }
+
+    public void EatMallow() {
+        if (mallowState != MarshmallowState.None && mallowState != MarshmallowState.Eating) {
+            mallowState = MarshmallowState.Eating;
+            elapsedEatTime = 0;
         }
     }
 }
