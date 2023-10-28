@@ -527,6 +527,75 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 13cebb068e27fff4995b3f0b33123e9b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bb7d77dbabcdf7469d221effa9ead7c, type: 3}
+--- !u!1001 &264341634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7417922133951207746, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_Name
+      value: BlueTooth Speaker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.72010636
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.6709366
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.080925725
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7024607
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7024607
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.080925725
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812626743097142097, guid: 6bb306294b375cb469ed45e97d574bb7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -193.14299
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6bb306294b375cb469ed45e97d574bb7, type: 3}
 --- !u!1001 &278742024
 PrefabInstance:
   m_ObjectHideFlags: 0
