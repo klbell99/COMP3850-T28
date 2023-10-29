@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class GameManager : MonoBehaviour
 
     public float duskRotation;  // rotation of skybox at dusk
     public float dawnRotation;  // rotation of skybox at dawn - ideally should be 180 degrees above the dusk rotation
+
+    public Text line1;
+    public Text line2;
+    private Color textCol1 = Color.white;
+    private Color textCol2 = Color.white;
 
     // enum for different states of the night cycle
     private enum SkyTime
@@ -63,13 +69,41 @@ public class GameManager : MonoBehaviour
         Color startColour = new Color(duskColour.x/255f, duskColour.y/255f, duskColour.z/255f, 1f);
         RenderSettings.skybox.SetColor("_Tint", startColour);
         RenderSettings.skybox.SetFloat("_Rotation", duskRotation);
+        textCol1.a = 0;
+        textCol2.a = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= dimTime && !dimFlag) {
-            dimFlag = true;
+        if (Time.time >= 2 && Time.time < 5.5) {
+            if (textCol1.a < 1) {
+                textCol1.a += (Time.deltaTime/3);
+                line1.color = textCol1;
+            } else if (textCol1.a > 1) {
+                textCol1.a = 1;
+                line1.color = textCol1;
+            }
+        }
+        if (Time.time >= 8 && Time.time < 11.5) {
+            if (textCol2.a < 1) {
+                textCol2.a += (Time.deltaTime/3);
+                line2.color = textCol2;
+            } else if (textCol2.a > 1) {
+                textCol2.a = 1;
+                line2.color = textCol2;
+            }
+        }
+        if (Time.time >= 17 && Time.time < 20.5) {
+            if (textCol1.a > 0) {
+                textCol1.a -= (Time.deltaTime/3);
+                line1.color = textCol1;
+                line2.color = textCol1;
+            } else if (textCol1.a < 0) {
+                textCol1.a = 0;
+                line1.color = textCol1;
+                line2.color = textCol1;
+            }
         }
         if (currentSky == SkyTime.Dusk) {
             elapsedTime += Time.deltaTime;

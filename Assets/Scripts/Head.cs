@@ -18,7 +18,7 @@ public class Head : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         Stick stick = other.GetComponent<Stick>();
-        if (stick._CurrentState != Stick.MarshmallowState.None && stick._CurrentState != Stick.MarshmallowState.Eating) {
+        if (stick._CurrentState != Stick.MarshmallowState.None && stick._CurrentState != Stick.MarshmallowState.Burnt) {
             other.GetComponent<Stick>().EatMallow();
             GetComponent<AudioSource>().Play();
         }
