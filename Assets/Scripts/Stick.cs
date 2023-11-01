@@ -24,6 +24,7 @@ public class Stick : MonoBehaviour
     //private float elapsedEatTime;
     //public float mallowEatTime;     // time in seconds for mallow eat animation to play
     private int bites;      //current number of bites taken in animation (0 - no bites, 1 - 1 bite, 2 - 2 bites)
+    private float mallowScale;
 
     private MarshmallowState mallowState;
     public enum MarshmallowState
@@ -57,6 +58,18 @@ public class Stick : MonoBehaviour
 
         if (mallowState == MarshmallowState.Burnt) {
             toastTime += Time.deltaTime;
+            if (mallow.activeInHierarchy) {
+                mallowScale = Mathf.Lerp(0.75f, 0f, (toastTime-burnThreshold)/(meltThreshold-burnThreshold));
+                mallow.transform.localScale = new Vector3(mallowScale, mallowScale, mallowScale);
+            }
+            if (mallowBiteOne.activeInHierarchy) {
+                mallowScale = Mathf.Lerp(2.02f, 0f, (toastTime-burnThreshold)/(meltThreshold-burnThreshold));
+                mallowBiteOne.transform.localScale = new Vector3(mallowScale, mallowScale, mallowScale);
+            }
+            if (mallowBiteTwo.activeInHierarchy) {
+                mallowScale = Mathf.Lerp(2.02f, 0f, (toastTime-burnThreshold)/(meltThreshold-burnThreshold));
+                mallowBiteTwo.transform.localScale = new Vector3(mallowScale, mallowScale, mallowScale);
+            }
             if (toastTime >= meltThreshold) {
                 smallFire.Stop();
                 FireCollider.Instance.StopSound();
@@ -77,6 +90,9 @@ public class Stick : MonoBehaviour
         bites = 0;
         mallow.SetActive(true);
         GetComponent<AudioSource>().Play();
+        mallow.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        mallowBiteOne.transform.localScale = new Vector3(2.02f, 2.02f, 2.02f);
+        mallowBiteTwo.transform.localScale = new Vector3(2.02f, 2.02f, 2.02f);
     }
 
     public void MallowDisappear() {

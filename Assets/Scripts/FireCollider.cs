@@ -48,7 +48,6 @@ public class FireCollider : MonoBehaviour
                 emberParticles.Stop();
             }
             float thisScale = Mathf.Lerp(1, 0, dimTime/fireDimRate);
-            Debug.Log(thisScale);
             //float thisRate = fireDimRate * Time.deltaTime;
             fireScale = new Vector3(thisScale, thisScale, thisScale);
             fireParticles.transform.localScale = fireScale;

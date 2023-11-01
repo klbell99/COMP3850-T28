@@ -437,7 +437,7 @@ PrefabInstance:
       objectReference: {fileID: 1338963336}
     - target: {fileID: 1551510020, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
       propertyPath: fireDimRate
-      value: 240
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1551510020, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
       propertyPath: fireMainSound
@@ -1582,7 +1582,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2645,9 +2645,9 @@ MonoBehaviour:
   dawnRotation: 205
   line1: {fileID: 1522790413}
   line2: {fileID: 791321988}
-  transitionTime: 30
-  dawnTime: 5
-  dimTime: 2
+  transitionTime: 60
+  dawnTime: 4
+  dimTime: 1
   endTime: 6
 --- !u!1001 &1378689773
 PrefabInstance:
@@ -3175,10 +3175,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -4566,7 +4566,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: daf4089cab8b82f4a8ed3704762d9b9f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4625,7 +4625,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4722,6 +4722,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 036785cf4b2549145a5113cb2a4f3e0c, type: 3}
+    - target: {fileID: 3331786090570265741, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7729959292498780052, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -4917,6 +4922,31 @@ PrefabInstance:
       propertyPath: toastThreshold
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3331786090570265738, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: burnThreshold
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786090570265738, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: meltThreshold
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729959291109227267, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729959291109227267, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729959291109227267, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3331786088656030162, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6, type: 3}
@@ -4938,7 +4968,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e500ad3d328ba514f953471b97e25761, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

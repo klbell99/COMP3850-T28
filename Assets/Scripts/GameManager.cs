@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public float duskRotation;  // rotation of skybox at dusk
     public float dawnRotation;  // rotation of skybox at dawn - ideally should be 180 degrees above the dusk rotation
+    private float nightRotation;
 
     public Text line1;
     public Text line2;
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
         RenderSettings.skybox.SetFloat("_Rotation", duskRotation);
         textCol1.a = 0;
         textCol2.a = 0;
+        nightRotation = 0;
     }
 
     // Update is called once per frame
@@ -131,10 +133,16 @@ public class GameManager : MonoBehaviour
             Vector3 thisVector = Vector3.Lerp(black, nightColour, currentInterpolation);
             Color thisColour = new Color(thisVector.x/255f, thisVector.y/255f, thisVector.z/255f, 1f);
             RenderSettings.skybox.SetColor("_Tint", thisColour);
+            nightRotation += (Time.deltaTime*0.05f);
+            RenderSettings.skybox.SetFloat("_Rotation", nightRotation);
             if (elapsedTime == transitionTime) {
                 currentSky = SkyTime.Night;
                 elapsedTime = 0;
             }
+        }
+        if (currentSky == SkyTime.Night) {
+            nightRotation += (Time.deltaTime*0.05f);
+            RenderSettings.skybox.SetFloat("_Rotation", nightRotation);
         }
         if (Time.time >= dawnTime && currentSky == SkyTime.Night) {
             currentSky = SkyTime.NightEnd;
@@ -147,6 +155,8 @@ public class GameManager : MonoBehaviour
             float currentInterpolation = elapsedTime / transitionTime;
             Vector3 thisVector = Vector3.Lerp(nightColour, black, currentInterpolation);
             Color thisColour = new Color(thisVector.x/255f, thisVector.y/255f, thisVector.z/255f, 1f);
+            nightRotation += (Time.deltaTime*0.05f);
+            RenderSettings.skybox.SetFloat("_Rotation", nightRotation);
             RenderSettings.skybox.SetColor("_Tint", thisColour);
             if (elapsedTime == transitionTime) {
                 currentSky = SkyTime.Dawn;

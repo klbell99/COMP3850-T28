@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 481487832, guid: a80148f7c24f27741a9721c40a216ac9, type: 3}
+  m_Name: LimappConfig
+  m_EditorClassIdentifier: 
+  LimappAudioSettings:
+    Volume: 1
+    AudioConfig:
+      SpeakerMode: 2
+      DspBufferSize: 1024
+      SampleRate: 48000
+      NumRealVoices: 32
+      NumVirtualVoices: 512
+  LimappGraphicsSettings:
+    ScriptableRenderPipelineSettings: {fileID: 0}
+    TransparencySortMode: 0
+    TransparencySortAxis: {x: 0, y: 0, z: 1}
+  LimappPhysicsSettings:
+    DefaultContactOffset: 0.01
+    BounceThreshold: 2
+    DefaultSolverVelocityIterations: 1
+    Gravity: {x: 0, y: -9.81, z: 0}
+    SleepThreshold: 0.005
+    QueriesHitTriggers: 1
+    QueriesHitBackfaces: 0
+    DefaultSolverIterations: 6
+    AutoSimulation: 1
+    AutoSyncTransforms: 0
+  LimappPhysics2DSettings:
+    MaxRotationSpeed: 360
+    MaxTranslationSpeed: 100
+    MaxAngularCorrection: 8
+    MaxLinearCorrection: 0.2
+    VelocityThreshold: 1
+    AutoSimulation: 1
+    CallbacksOnDisable: 1
+    DefaultContactOffset: 0.01
+    ChangeStopsCallbacks: 0
+    QueriesStartInColliders: 1
+    QueriesHitTriggers: 1
+    Gravity: {x: 0, y: -9.81}
+    PositionIterations: 3
+    AutoSyncTransforms: 0
+    BaumgarteScale: 0.2
+    TimeToSleep: 0.5
+    VelocityIterations: 8
+    LinearSleepTolerance: 0.01
+    AngularSleepTolerance: 2
+    AlwaysShowColliders: 0
+    ShowColliderSleep: 1
+    ShowColliderContacts: 0
+    ShowColliderAABB: 0
+    ContactArrowScale: 0.2
+    ColliderAwakeColor: {r: 0.5686275, g: 0.95686275, b: 0.54509807, a: 0.7529412}
+    ColliderAsleepColor: {r: 0.5686275, g: 0.95686275, b: 0.54509807, a: 0.36078432}
+    ColliderContactColor: {r: 1, g: 0, b: 1, a: 0.6862745}
+    ColliderAABBColor: {r: 1, g: 1, b: 0, a: 0.2509804}
+  LimappQualitySettings:
+    LodBias: 2
+    MaximumLODLevel: 0
+    ParticleRaycastBudget: 4096
+    SoftParticles: 1
+    SoftVegetation: 1
+    RealtimeReflectionProbes: 1
+    BillboardsFaceCameraPosition: 1
+    MaxQueuedFrames: 2
+    VSyncCount: 0
+    AntiAliasing: 2
+    BlendWeights: 4
+    AsyncUploadTimeSlice: 2
+    AsyncUploadBufferSize: 16
+    AnisotropicFiltering: 2
+    MasterTextureLimit: 0
+    ShadowmaskMode: 1
+    ShadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
+    ResolutionScalingFixedDPIFactor: 1
+    PixelLightCount: 4
+    Shadows: 2
+    ShadowProjection: 1
+    ShadowDistance: 150
+    ShadowResolution: 2
+    ShadowNearPlaneOffset: 3
+    ShadowCascade2Split: 0.33333334
+    ShadowCascades: 4
+    QualityLevel: 0
+  LimappTimeSettings:
+    TimeScale: 1
+    MaximumParticleDeltaTime: 0.03
+    MaximumDeltaTime: 0.33333334
+    CaptureFramerate: 0
+    FixedDeltaTime: 0.02
