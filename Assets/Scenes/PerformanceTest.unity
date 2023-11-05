@@ -447,6 +447,14 @@ PrefabInstance:
       propertyPath: emberParticles
       value: 
       objectReference: {fileID: 138641328}
+    - target: {fileID: 1551510020, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
+      propertyPath: charcoal
+      value: 
+      objectReference: {fileID: 2100000, guid: 590e077b03a902145a5310ae662a7b8b, type: 2}
+    - target: {fileID: 1551510020, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
+      propertyPath: coalDimRate
+      value: 330
+      objectReference: {fileID: 0}
     - target: {fileID: 151343105, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -461,7 +469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1551510022, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
       propertyPath: m_Volume
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
@@ -1196,13 +1204,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 23f79de3f28c96148a3f8c3949187eff, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 160
+  Priority: 200
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -4564,9 +4572,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: daf4089cab8b82f4a8ed3704762d9b9f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 784d09a5ac7f3f54f8eac9552e5865a1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4575,7 +4583,7 @@ AudioSource:
   Priority: 256
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2.5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4725,7 +4733,12 @@ PrefabInstance:
     - target: {fileID: 3331786090570265741, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: m_Volume
-      value: 0.6
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786090570265741, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7729959292498780052, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
@@ -4750,12 +4763,12 @@ PrefabInstance:
     - target: {fileID: 3331786089913475445, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00666
+      value: -0.00681
       objectReference: {fileID: 0}
     - target: {fileID: 3331786089913475445, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00022
+      value: 0.00005
       objectReference: {fileID: 0}
     - target: {fileID: 6709533166490437904, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
@@ -4810,7 +4823,7 @@ PrefabInstance:
     - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 75
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
@@ -4855,7 +4868,7 @@ PrefabInstance:
     - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
@@ -4901,6 +4914,31 @@ PrefabInstance:
         type: 3}
       propertyPath: ShapeModule.randomDirectionAmount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: -0.09344937
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: -0.09344937
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331786089913475443, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0.28921568
       objectReference: {fileID: 0}
     - target: {fileID: 3331786089913475442, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
@@ -4966,15 +5004,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e500ad3d328ba514f953471b97e25761, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 41cc396288c9be843a29b69bc9ee262b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 126
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

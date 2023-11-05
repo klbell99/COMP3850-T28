@@ -23,6 +23,10 @@ public class FireCollider : MonoBehaviour
     public Light fireLight;
     public AudioSource fireMainSound;
     private float dimTime;
+    public Material charcoal;
+    private Color coalCol;
+    private float halfDimTime;
+    public float coalDimRate;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class FireCollider : MonoBehaviour
         fireGrad = colourMod.color.gradient;
         fireAlpha = fireGrad.alphaKeys[0].alpha;
         dimTime = 0;
+        halfDimTime = coalDimRate/2;
     }
 
     // Update is called once per frame
@@ -58,6 +63,10 @@ public class FireCollider : MonoBehaviour
                     new GradientAlphaKey(fireAlpha, 0.0f), new GradientAlphaKey(fireAlpha, 1.0f) 
                 }
             );
+            if (dimTime >= halfDimTime) {
+                coalCol = Color.Lerp(Color.white, Color.black, (dimTime-halfDimTime)/halfDimTime);
+                charcoal.SetColor("_EmissionColor", coalCol);
+            }
             colourMod.color = fireGrad;
             //float thisIntensity = fireLight.intensity;
             fireLight.intensity = thisScale;//thisIntensity - thisRate;
@@ -69,6 +78,11 @@ public class FireCollider : MonoBehaviour
             //     emberParticles.SetActive(false);
             //     fireLight.intensity = 0;
             // }
+        }
+        if (dimTime >= halfDimTime && !fireDimming && dimTime <= coalDimRate) {
+            dimTime += Time.deltaTime;
+            coalCol = Color.Lerp(Color.white, Color.black, (dimTime-halfDimTime)/halfDimTime);
+            charcoal.SetColor("_EmissionColor", coalCol);
         }
     }
 
