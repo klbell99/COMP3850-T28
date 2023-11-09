@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    // Keep GameManager as a singleton
     public static GameManager Instance { get; private set;}
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -23,10 +24,12 @@ public class GameManager : MonoBehaviour
     public Vector3 dawnColour;   // r/g/b for the dawn sky at its brightest
     private Vector3 black = new Vector3(0f, 0f, 0f);
 
+    // skybox rotations
     public float duskRotation;  // rotation of skybox at dusk
     public float dawnRotation;  // rotation of skybox at dawn - ideally should be 180 degrees above the dusk rotation
-    private float nightRotation;
+    private float nightRotation;    // current rotation of night skybox, is turned slowly during the night
 
+    // Variables for starting narration text
     public Text line1;
     public Text line2;
     private Color textCol1 = Color.white;
@@ -55,6 +58,10 @@ public class GameManager : MonoBehaviour
 
     // "end" - point where timed experience ends
     public float endTime;   // in minutes
+    public SpriteRenderer fadeScreen;   // plain black sprite that is faded in at the end of the experience4
+    private Color fadeColor = new Color(1, 1, 1, 0);
+    public float timeToFade;    // seconds it takes to fade out the experience before the application quits
+    private float fadeTimer;    // current time in seconds spent fading
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +80,7 @@ public class GameManager : MonoBehaviour
         textCol1.a = 0;
         textCol2.a = 0;
         nightRotation = 0;
+        fadeTimer = 0;
     }
 
     // Update is called once per frame
@@ -184,6 +192,12 @@ public class GameManager : MonoBehaviour
             dimFlag = true;
         }
         if (Time.time >= endTime) {
+            fadeTimer += Time.deltaTime;
+            float thisAlpha = Mathf.Lerp(0, 1, fadeTimer/timeToFade);
+            fadeColor.a = thisAlpha;
+            fadeScreen.color = fadeColor;
+        }
+        if (Time.time > (endTime + timeToFade)) {
             Application.Quit();
         }
     }
