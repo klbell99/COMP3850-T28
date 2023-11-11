@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Editor.meta
+guid: a007a16238124694d872ed78d36d4fdd
+folderAsset: yes
+DefaultImporter:
+========
+guid: 0d4487ac9036f2440995a4b2efb4f58d
+NativeFormatImporter:
+>>>>>>>> main:Assets/Materials/Speaker.mat.meta
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
