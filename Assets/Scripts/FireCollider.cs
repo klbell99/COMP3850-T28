@@ -27,6 +27,13 @@ public class FireCollider : MonoBehaviour
     private Color coalCol;
     private float halfDimTime;
     public float coalDimRate;
+
+    // Collider variables related to shrinking size of collider
+    private BoxCollider colliderRef;
+    private Vector3 colliderSize;
+    private float centerY;  // Y value of the collider's center - needs to be half the collider's size y to keep position consistent
+    private Vector3 currentCollSize;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +44,10 @@ public class FireCollider : MonoBehaviour
         fireAlpha = fireGrad.alphaKeys[0].alpha;
         dimTime = 0;
         halfDimTime = coalDimRate/2;
+        colliderRef = this.GetComponent<BoxCollider>();
+        colliderSize = colliderRef.size;
+        centerY = colliderSize.y/2f;
+        colliderRef.center = new Vector3(0, centerY, 0);
     }
 
     // Update is called once per frame
@@ -44,6 +55,7 @@ public class FireCollider : MonoBehaviour
     {
         if (fireDimming) {
             dimTime += Time.deltaTime;
+            // Fully end dimming process
             if (dimTime/fireDimRate >= 1) {
                 dimTime = fireDimRate;
                 fireDimming = false;
@@ -52,10 +64,11 @@ public class FireCollider : MonoBehaviour
                 fireMainSound.Stop();
                 emberParticles.Stop();
             }
+            // Scaling of fire particle system
             float thisScale = Mathf.Lerp(1, 0, dimTime/fireDimRate);
-            //float thisRate = fireDimRate * Time.deltaTime;
             fireScale = new Vector3(thisScale, thisScale, thisScale);
             fireParticles.transform.localScale = fireScale;
+            // Lower opacity of fire particles
             fireAlpha = Mathf.Lerp(0.62f, 0f, dimTime/fireDimRate);
             fireGrad.SetKeys(
                 fireGrad.colorKeys,
@@ -63,21 +76,19 @@ public class FireCollider : MonoBehaviour
                     new GradientAlphaKey(fireAlpha, 0.0f), new GradientAlphaKey(fireAlpha, 1.0f) 
                 }
             );
+            colourMod.color = fireGrad;
+            // Decrease size of collider in proportion with particle system shrinking
+            currentCollSize = Vector3.Lerp(colliderSize, new Vector3(0, 0, 0), dimTime/fireDimRate);
+            colliderRef.size = currentCollSize;
+            centerY = currentCollSize.y/2f;
+            colliderRef.center = new Vector3(0, centerY, 0);
+            // Lower emission of charcoal texture - should happen halfway through dimming process
             if (dimTime >= halfDimTime) {
                 coalCol = Color.Lerp(Color.white, Color.black, (dimTime-halfDimTime)/halfDimTime);
                 charcoal.SetColor("_EmissionColor", coalCol);
             }
-            colourMod.color = fireGrad;
-            //float thisIntensity = fireLight.intensity;
-            fireLight.intensity = thisScale;//thisIntensity - thisRate;
-            // if (fireParticles.transform.localScale.x < 0.1 || fireGrad.alphaKeys[0].alpha <= 0) {
-            //     fireDimming = false;
-            //     GetComponent<BoxCollider>().enabled = false;
-            //     StopSound();
-            //     fireMainSound.Stop();
-            //     emberParticles.SetActive(false);
-            //     fireLight.intensity = 0;
-            // }
+            // Scale down intensity of surrounding light
+            fireLight.intensity = thisScale;
         }
         if (dimTime >= halfDimTime && !fireDimming && dimTime <= coalDimRate) {
             dimTime += Time.deltaTime;
@@ -99,6 +110,7 @@ public class FireCollider : MonoBehaviour
         GetComponent<AudioSource>().Stop();
     }
 
+    // Public function to immediately stop sizzling sound, called by Stick script when marshmallow melts
     public void StopSound() {
         GetComponent<AudioSource>().Stop();
     }
