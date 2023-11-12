@@ -22,6 +22,7 @@ public class FireCollider : MonoBehaviour
     private float fireAlpha;
     public Light fireLight;
     public AudioSource fireMainSound;
+    private float fireMainVol;
     private float dimTime;
     public Material charcoal;
     private Color coalCol;
@@ -48,6 +49,7 @@ public class FireCollider : MonoBehaviour
         colliderSize = colliderRef.size;
         centerY = colliderSize.y/2f;
         colliderRef.center = new Vector3(0, centerY, 0);
+        fireMainVol = fireMainSound.volume;
     }
 
     // Update is called once per frame
@@ -68,6 +70,8 @@ public class FireCollider : MonoBehaviour
             float thisScale = Mathf.Lerp(1, 0, dimTime/fireDimRate);
             fireScale = new Vector3(thisScale, thisScale, thisScale);
             fireParticles.transform.localScale = fireScale;
+            float thisVolume = Mathf.Lerp(fireMainVol, 0, dimTime/fireDimRate);
+            fireMainSound.volume = thisVolume;
             // Lower opacity of fire particles
             fireAlpha = Mathf.Lerp(0.62f, 0f, dimTime/fireDimRate);
             fireGrad.SetKeys(

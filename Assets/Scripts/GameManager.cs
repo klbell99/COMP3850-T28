@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour
     // "dawn" - sunrise variables
     public float dawnTime;  // in minutes - time that dawn transition starts
     private bool dawnFlag;  // true when dawn transition is complete
+    public AudioSource yawnAudio;   // audio source on tent for yawn clip
+    public float yawnTime;  // in seconds - time after SkyTime=Dawn that yawn audio clip plays
+    private bool yawnFlag;  // true when yawn has been played to avoid sending the call again
 
     // "dim" - point where fire starts going out
     public float dimTime;  // in minutes
@@ -69,6 +72,7 @@ public class GameManager : MonoBehaviour
         currentSky = SkyTime.Dusk;
         dimFlag = false;
         dawnFlag = false;
+        yawnFlag = false;
         // change times from minutes to seconds
         endTime *= 60;
         dawnTime *= 60;
@@ -176,6 +180,11 @@ public class GameManager : MonoBehaviour
         }
         if (currentSky == SkyTime.Dawn && !dawnFlag) {
             elapsedTime += Time.deltaTime;
+            // do yawn audio
+            if (elapsedTime > yawnTime && !yawnFlag) {
+                yawnFlag = true;
+                yawnAudio.Play();
+            }
             if (elapsedTime > transitionTime) { // avoid overshoot
                 elapsedTime = transitionTime;
             }
