@@ -760,6 +760,14 @@ PrefabInstance:
       propertyPath: coalDimRate
       value: 330
       objectReference: {fileID: 0}
+    - target: {fileID: 1551510020, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
+      propertyPath: fireDimTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551510020, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
+      propertyPath: coalDimTime
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 151343105, guid: 2c9aff572ba93b64886624d4fff07f73, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -13232,7 +13240,7 @@ PrefabInstance:
     - target: {fileID: 3331786090570265738, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6,
         type: 3}
       propertyPath: meltThreshold
-      value: 35
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3331786088656030162, guid: 1aafdbf3d2f1f0d4182a7e0a838cbcd6, type: 3}

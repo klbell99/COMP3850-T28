@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireCollider : MonoBehaviour
 {
+    // FireCollider should be a singleton, so it can be easily referenced by GameManager
     public static FireCollider Instance { get; private set;}
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -12,43 +13,59 @@ public class FireCollider : MonoBehaviour
             Instance = this;
         }
     }
-    private Vector3 fireScale;
-    private bool fireDimming;
-    public GameObject fireParticles;
-    public ParticleSystem emberParticles;
-    public float fireDimRate;//how long it should take for fire to dim completely in seconds
-    private ParticleSystem.ColorOverLifetimeModule colourMod;
-    private Gradient fireGrad;
-    private float fireAlpha;
-    public Light fireLight;
-    public AudioSource fireMainSound;
-    private float fireMainVol;
-    private float dimTime;
-    public Material charcoal;
-    private Color coalCol;
-    private float halfDimTime;
-    public float coalDimRate;
+
+    private Vector3 fireScale;  // variable for current scale of fire
+    private bool fireDimming;   // true when fire should be dimming, set by GameManager
+    public float fireDimTime;   // how long it should take for fire to dim completely in minutes, converted to seconds
+    private Gradient fireGrad;  // Gradient of fire colour, repeatedly changed and assigned to colourMod
+    private float fireAlpha;    // Alpha value of fire colour, applied to fireGrad
+    private float fireMainVol;  // Initial volume of fire ambience (fireMainSound)
+    private float elapsedTime;      // Current time spent dimming fire
+
+    // Charcoal dimming variables
+    private bool coalDimming;   // true when coal should be dimming
+    public float coalDimTime;   // how long in seconds after the fire is dimmed that the coal should be completely dimmed
+    public Material charcoal;   // Charcoal material, emmission is lowered to dim the coal
+    private Color coalCol;      // Current colour value to assign to charcoal material
+    private float elapsedTimeC; // current elapsed time for dimming coal
+
+    // Reference variables to outside objects affected by dimming
+    public GameObject fireParticles;    // Fire particle system
+    private ParticleSystem.ColorOverLifetimeModule colourMod;   // Colour of fireParticles to reduce alpha values
+    public ParticleSystem emberParticles;   // Flying embers particle system
+    public Light fireLight;     // Light intensity decreased with dimming
+    public AudioSource fireMainSound;   // Volume lowered over time with dimming
 
     // Collider variables related to shrinking size of collider
-    private BoxCollider colliderRef;
-    private Vector3 colliderSize;
+    private BoxCollider colliderRef;    // The collider itself
+    private Vector3 colliderSize;   // Initial size of collider, used for vector lerp
     private float centerY;  // Y value of the collider's center - needs to be half the collider's size y to keep position consistent
-    private Vector3 currentCollSize;
+    private Vector3 currentCollSize;    // The new size determined each frame and assigned to colliderRef.size
     
     // Start is called before the first frame update
     void Start()
     {
-        //fireDimRate = 1f/fireDimRate;//change to the unit amount the scale should decrease by each second
+        // Convert to seconds
+        fireDimTime *= 60;
+        // coal starts dimming halfway through fire dimming
+        // coalDimTime is half of fireDimTime + some seconds set in Inspector
+        coalDimTime += (fireDimTime/2);
+        // initialise flags as false
         fireDimming = false;
+        coalDimming = false;
+        // get fireParticles colour and initialise related variables
         colourMod = fireParticles.GetComponent<ParticleSystem>().colorOverLifetime;
         fireGrad = colourMod.color.gradient;
         fireAlpha = fireGrad.alphaKeys[0].alpha;
-        dimTime = 0;
-        halfDimTime = coalDimRate/2;
+        // initialise timers to 0
+        elapsedTime = 0;
+        elapsedTimeC = 0;
+        // get reference to collider and set related variables
         colliderRef = this.GetComponent<BoxCollider>();
         colliderSize = colliderRef.size;
         centerY = colliderSize.y/2f;
-        colliderRef.center = new Vector3(0, centerY, 0);
+        colliderRef.center = new Vector3(0, centerY, 0);    // ensure center of collider starts at half of height
+        // get initial volume
         fireMainVol = fireMainSound.volume;
     }
 
@@ -56,10 +73,10 @@ public class FireCollider : MonoBehaviour
     void Update()
     {
         if (fireDimming) {
-            dimTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
             // Fully end dimming process
-            if (dimTime/fireDimRate >= 1) {
-                dimTime = fireDimRate;
+            if (elapsedTime/fireDimTime >= 1) {
+                elapsedTime = fireDimTime;
                 fireDimming = false;
                 GetComponent<BoxCollider>().enabled = false;
                 StopSound();
@@ -67,40 +84,47 @@ public class FireCollider : MonoBehaviour
                 emberParticles.Stop();
             }
             // Scaling of fire particle system
-            float thisScale = Mathf.Lerp(1, 0, dimTime/fireDimRate);
+            float thisScale = Mathf.Lerp(1, 0, elapsedTime/fireDimTime);
             fireScale = new Vector3(thisScale, thisScale, thisScale);
             fireParticles.transform.localScale = fireScale;
-            float thisVolume = Mathf.Lerp(fireMainVol, 0, dimTime/fireDimRate);
+            // Lower volume of ambience sounds
+            float thisVolume = Mathf.Lerp(fireMainVol, 0, elapsedTime/fireDimTime);
             fireMainSound.volume = thisVolume;
             // Lower opacity of fire particles
-            fireAlpha = Mathf.Lerp(0.62f, 0f, dimTime/fireDimRate);
+            fireAlpha = Mathf.Lerp(0.62f, 0f, elapsedTime/fireDimTime);
             fireGrad.SetKeys(
                 fireGrad.colorKeys,
                 new GradientAlphaKey[] { 
                     new GradientAlphaKey(fireAlpha, 0.0f), new GradientAlphaKey(fireAlpha, 1.0f) 
                 }
-            );
+            );      // change alpha keys of fireGrad to reduce alpha over time
             colourMod.color = fireGrad;
             // Decrease size of collider in proportion with particle system shrinking
-            currentCollSize = Vector3.Lerp(colliderSize, new Vector3(0, 0, 0), dimTime/fireDimRate);
+            currentCollSize = Vector3.Lerp(colliderSize, new Vector3(0, 0, 0), elapsedTime/fireDimTime);
             colliderRef.size = currentCollSize;
             centerY = currentCollSize.y/2f;
             colliderRef.center = new Vector3(0, centerY, 0);
-            // Lower emission of charcoal texture - should happen halfway through dimming process
-            if (dimTime >= halfDimTime) {
-                coalCol = Color.Lerp(Color.white, Color.black, (dimTime-halfDimTime)/halfDimTime);
-                charcoal.SetColor("_EmissionColor", coalCol);
+            // Halfway point of fire dimming passed, start coalDimming
+            if ((elapsedTime >= (fireDimTime/2)) && !coalDimming) {
+                coalDimming = true;
             }
             // Scale down intensity of surrounding light
             fireLight.intensity = thisScale;
         }
-        if (dimTime >= halfDimTime && !fireDimming && dimTime <= coalDimRate) {
-            dimTime += Time.deltaTime;
-            coalCol = Color.Lerp(Color.white, Color.black, (dimTime-halfDimTime)/halfDimTime);
+        if (coalDimming) {
+            elapsedTimeC += Time.deltaTime;
+            // End coal dimming
+            if (elapsedTimeC >= coalDimTime) {
+                elapsedTimeC = coalDimTime;
+                coalDimming = false;    // code below still executes on this last call
+            }
+            //Lower emission of charcoal texture
+            coalCol = Color.Lerp(Color.white, Color.black, elapsedTimeC/coalDimTime);
             charcoal.SetColor("_EmissionColor", coalCol);
         }
     }
 
+    // Start cooking on Stick and start sizzling sound when stick enters fire
     void OnTriggerEnter(Collider other) {
         Stick stick = other.GetComponent<Stick>();
         if (stick._CurrentState != Stick.MarshmallowState.None) {
@@ -109,6 +133,7 @@ public class FireCollider : MonoBehaviour
         }
     }
 
+    // Stop cooking on Stick and stop sizzling sound when stick exits fire
     void OnTriggerExit(Collider other) {
         other.GetComponent<Stick>().CookingState(false);
         GetComponent<AudioSource>().Stop();
@@ -119,6 +144,7 @@ public class FireCollider : MonoBehaviour
         GetComponent<AudioSource>().Stop();
     }
 
+    // Public function to start fire dimming process, called by GameManager script based on its dimTime variable
     public void ShrinkFire() {
         fireDimming = true;
     }

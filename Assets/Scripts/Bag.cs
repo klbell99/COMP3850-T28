@@ -18,6 +18,6 @@ public class Bag : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         other.GetComponent<Stick>().MallowAppear();
-        //GetComponent<AudioSource>().Play();
+        //GetComponent<AudioSource>().Play();   // bag rustling sound effect currently unused
     }
 }
